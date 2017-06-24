@@ -19,16 +19,16 @@ prototype but is more flexible for individual tasks.
 7) Assign array of UserPrincipalName from your tenant to $UPNarr or perform single actions
 
 ### List valid license SKU for your tenant
-(Get-MsolAccountSku).AccountSkuId
+`(Get-MsolAccountSku).AccountSkuId`
 
 ### Simple report
-$UPNarr | select @{n='UPN';e={$_}},@{n='365License';e={Get-365License -UPN $_}} 
+`$UPNarr | select @{n='UPN';e={$_}},@{n='365License';e={Get-365License -UPN $_}}`
 
 ### Remove any assigned license(s)
-$UPNarr | % {$acct = $_; (Get-365License -UPN $acct ).split(';') | % {if($_ -match ':'){Remove-365License -UPN $acct -LicenseType $_}}}
+`$UPNarr | % {$acct = $_; (Get-365License -UPN $acct ).split(';') | % {if($_ -match ':'){Remove-365License -UPN $acct -LicenseType $_}}}`
 
 ### Replace E3 with E1 license type
-$UPNarr | % {Remove-365License -UPN $_ -LicenseType 'tenant:ENTERPRISEPACK'; Add-365License -UPN $_ -LicenseType 'tenant:STANDARDPACK'}
+`$UPNarr | % {Remove-365License -UPN $_ -LicenseType 'tenant:ENTERPRISEPACK'; Add-365License -UPN $_ -LicenseType 'tenant:STANDARDPACK'}`
 
 ## License
 
